@@ -3248,12 +3248,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1b3711ec-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/PinchZoom.vue?vue&type=template&id=2d52d2bd&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1b3711ec-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/PinchZoom.vue?vue&type=template&id=f5d70ee6&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"pinch-zoom-wrapper",style:(_vm.styleObject)},[_c('div',{ref:"wrapper",staticClass:"pinch-zoom-content",class:{'pz-dragging': _vm.isDragging()}},[_vm._t("default")],2),(_vm.isControl())?_c('div',{staticClass:"pz-zoom-button pz-zoom-control-position-bottom",class:{'pz-zoom-button-out': _vm.isZoomedIn},on:{"click":function($event){return _vm.toggleZoom()}}}):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/PinchZoom.vue?vue&type=template&id=2d52d2bd&
+// CONCATENATED MODULE: ./src/components/PinchZoom.vue?vue&type=template&id=f5d70ee6&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
 var es_array_join = __webpack_require__("a15b");
@@ -4202,18 +4202,18 @@ function () {
     this.i = 0;
     this.isMousedown = false;
     this.touchListeners = {
-      "touchstart": "handleTouchstart",
-      "touchmove": "handleTouchmove",
-      "touchend": "handleTouchend"
+      touchstart: 'handleTouchstart',
+      touchmove: 'handleTouchmove',
+      touchend: 'handleTouchend'
     };
     this.mouseListeners = {
-      "mousedown": "handleMousedown",
-      "mousemove": "handleMousemove",
-      "mouseup": "handleMouseup",
-      "wheel": "handleWheel"
+      mousedown: 'handleMousedown',
+      mousemove: 'handleMousemove',
+      mouseup: 'handleMouseup',
+      wheel: 'handleWheel'
     };
     this.otherListeners = {
-      "resize": "handleResize"
+      resize: 'handleResize'
     };
     /*
      * Listeners
@@ -4229,7 +4229,7 @@ function () {
         _this.getTouchstartPosition(event);
       }
 
-      _this.runHandler("touchstart", event);
+      _this.runHandler('touchstart', event);
     };
     /* Touchmove */
 
@@ -4238,12 +4238,12 @@ function () {
       var touches = event.touches; // Pan
 
       if (_this.detectPan(touches)) {
-        _this.runHandler("pan", event);
+        _this.runHandler('pan', event);
       } // Pinch
 
 
       if (_this.detectPinch(event)) {
-        _this.runHandler("pinch", event);
+        _this.runHandler('pinch', event);
       }
     };
     /* Touchend */
@@ -4253,13 +4253,13 @@ function () {
       var touches = event.touches; // Double Tap
 
       if (_this.detectDoubleTap()) {
-        _this.runHandler("double-tap", event);
+        _this.runHandler('double-tap', event);
       } // Tap
 
 
       _this.detectTap();
 
-      _this.runHandler("touchend", event);
+      _this.runHandler('touchend', event);
 
       _this.eventType = 'touchend';
 
@@ -4280,33 +4280,33 @@ function () {
         _this.getMousedownPosition(event);
       }
 
-      _this.runHandler("mousedown", event);
+      _this.runHandler('mousedown', event);
     };
     /* Mousemove */
 
 
     this.handleMousemove = function (event) {
-      //event.preventDefault();
+      // event.preventDefault();
       if (!_this.isMousedown) {
         return;
       } // Pan
 
 
-      _this.runHandler("pan", event); // Linear swipe
+      _this.runHandler('pan', event); // Linear swipe
 
 
       switch (_this.detectLinearSwipe(event)) {
-        case "horizontal-swipe":
-          event.swipeType = "horizontal-swipe";
+        case 'horizontal-swipe':
+          event.swipeType = 'horizontal-swipe';
 
-          _this.runHandler("horizontal-swipe", event);
+          _this.runHandler('horizontal-swipe', event);
 
           break;
 
-        case "vertical-swipe":
-          event.swipeType = "vertical-swipe";
+        case 'vertical-swipe':
+          event.swipeType = 'vertical-swipe';
 
-          _this.runHandler("vertical-swipe", event);
+          _this.runHandler('vertical-swipe', event);
 
           break;
       } // Linear swipe
@@ -4325,7 +4325,7 @@ function () {
 
       _this.isMousedown = false;
 
-      _this.runHandler("mouseup", event);
+      _this.runHandler('mouseup', event);
 
       _this.eventType = undefined;
       _this.i = 0;
@@ -4334,13 +4334,13 @@ function () {
 
 
     this.handleWheel = function (event) {
-      _this.runHandler("wheel", event);
+      _this.runHandler('wheel', event);
     };
     /* Resize */
 
 
     this.handleResize = function (event) {
-      _this.runHandler("resize", event);
+      _this.runHandler('resize', event);
     };
 
     this.properties = properties;
@@ -4372,7 +4372,7 @@ function () {
       for (var listener in listeners) {
         var handler = listeners[listener]; // Window
 
-        if (listener === "resize") {
+        if (listener === 'resize') {
           if (action === 'addEventListener') {
             window.addEventListener(listener, this[handler], false);
           }
@@ -4381,7 +4381,7 @@ function () {
             window.removeEventListener(listener, this[handler], false);
           } // Document
 
-        } else if (listener === 'mouseup' || listener === "mousemove") {
+        } else if (listener === 'mouseup' || listener === 'mousemove') {
           if (action === 'addEventListener') {
             document.addEventListener(listener, this[handler], false);
           }
@@ -4404,7 +4404,7 @@ function () {
   }, {
     key: "handleLinearSwipe",
     value: function handleLinearSwipe(event) {
-      //event.preventDefault();
+      // event.preventDefault();
       this.i++;
 
       if (this.i > 3) {
@@ -4440,7 +4440,7 @@ function () {
     value: function detectDoubleTap() {
       var _this2 = this;
 
-      if (this.eventType != undefined) {
+      if (this.eventType !== undefined) {
         return;
       }
 
@@ -4461,7 +4461,7 @@ function () {
   }, {
     key: "detectTap",
     value: function detectTap() {
-      if (this.eventType != undefined) {
+      if (this.eventType !== undefined) {
         return;
       }
 
@@ -4470,9 +4470,9 @@ function () {
 
       if (tapLength > 0) {
         if (tapLength < this.tapMinTimeout) {
-          this.runHandler("tap", event);
+          this.runHandler('tap', event);
         } else {
-          this.runHandler("longtap", event);
+          this.runHandler('longtap', event);
         }
       }
     }
@@ -4491,10 +4491,8 @@ function () {
         if (touches.length === 1 && !this.eventType || this.eventType === 'horizontal-swipe' || this.eventType === 'vertical-swipe') {
           return this.getLinearSwipeType(event);
         }
-      } else {
-        if (!this.eventType || this.eventType === 'horizontal-swipe' || this.eventType === 'vertical-swipe') {
-          return this.getLinearSwipeType(event);
-        }
+      } else if (!this.eventType || this.eventType === 'horizontal-swipe' || this.eventType === 'vertical-swipe') {
+        return this.getLinearSwipeType(event);
       }
     }
   }, {
@@ -4596,7 +4594,7 @@ var IvyPinchDefaultProperties = {
   doubleTap: true,
   doubleTapScale: 2,
   transitionDuration: 200,
-  limitZoom: "original image size",
+  limitZoom: 'original image size',
   minScale: 0,
   wheel: true,
   wheelZoomFactor: 0.2,
@@ -4645,7 +4643,7 @@ function () {
 
     this.handleTouchend = function (event) {
       /* touchend */
-      if (event.type === "touchend") {
+      if (event.type === 'touchend') {
         _this.i = 0;
         _this.draggingMode = false;
         var touches = event.touches; // Min scale
@@ -4678,7 +4676,7 @@ function () {
       /* mouseup */
 
 
-      if (event.type === "mouseup") {
+      if (event.type === 'mouseup') {
         _this.draggingMode = false;
 
         _this.updateInitialValues();
@@ -4719,7 +4717,7 @@ function () {
       /* mousemove */
 
 
-      if (event.type === "mousemove") {
+      if (event.type === 'mousemove') {
         _this.centeringImage();
       }
 
@@ -4728,8 +4726,6 @@ function () {
 
     this.handleDoubleTap = function (event) {
       _this.toggleZoom(event);
-
-      return;
     };
 
     this.handlePinch = function (event) {
@@ -4768,6 +4764,13 @@ function () {
         }
 
         _this.transformElement(0);
+
+        _this.emitEvent({
+          name: 'pinch',
+          detail: {
+            scale: _this.scale
+          }
+        });
       }
     };
 
@@ -4895,9 +4898,9 @@ function () {
   }, {
     key: "getLimitZoom",
     value: function getLimitZoom() {
-      if (this.properties.limitZoom === "original image size") {
-        if (this.elementTarget === "IMG") {
-          var img = this.element.getElementsByTagName("img")[0];
+      if (this.properties.limitZoom === 'original image size') {
+        if (this.elementTarget === 'IMG') {
+          var img = this.element.getElementsByTagName('img')[0];
 
           if (img.naturalWidth && img.offsetWidth) {
             this.maxScale = img.naturalWidth / img.offsetWidth;
@@ -5056,11 +5059,11 @@ function () {
         return;
       }
 
-      var imgNaturalWidth = imgElement[0].getAttribute("width");
-      var imgNaturalHeight = imgElement[0].getAttribute("height");
+      var imgNaturalWidth = imgElement[0].getAttribute('width');
+      var imgNaturalHeight = imgElement[0].getAttribute('height');
       var sizeRatio = imgNaturalWidth / imgNaturalHeight;
       var parentWidth = this.parentElement.offsetWidth;
-      imgElement[0].style.maxHeight = parentWidth / sizeRatio + "px";
+      imgElement[0].style.maxHeight = parentWidth / sizeRatio + 'px';
     }
   }, {
     key: "removeImageSize",
@@ -5094,12 +5097,12 @@ function () {
       var clientX;
       var clientY;
 
-      if (event.type === "touchstart" || event.type === "touchmove") {
+      if (event.type === 'touchstart' || event.type === 'touchmove') {
         clientX = event.touches[index].clientX;
         clientY = event.touches[index].clientY;
       }
 
-      if (event.type === "mousedown" || event.type === "mousemove") {
+      if (event.type === 'mousedown' || event.type === 'mousemove') {
         clientX = event.clientX;
         clientY = event.clientY;
       }
@@ -5145,8 +5148,8 @@ function () {
   }, {
     key: "transformElement",
     value: function transformElement(duration) {
-      this.element.style.transition = "all " + duration + "ms";
-      this.element.style.transform = "matrix(" + Number(this.scale) + ", 0, 0, " + Number(this.scale) + ", " + Number(this.moveX) + ", " + Number(this.moveY) + ")";
+      this.element.style.transition = 'all ' + duration + 'ms';
+      this.element.style.transform = 'matrix(' + Number(this.scale) + ', 0, 0, ' + Number(this.scale) + ', ' + Number(this.moveX) + ', ' + Number(this.moveY) + ')';
     }
   }, {
     key: "isTouchScreen",
@@ -5233,6 +5236,13 @@ function () {
       } else {
         this.resetScale();
       }
+
+      this.emitEvent({
+        name: 'zoom',
+        detail: {
+          scale: this.scale
+        }
+      });
     }
   }, {
     key: "setZoom",
@@ -5351,6 +5361,11 @@ function (_Vue) {
     key: "beforeDestroy",
     value: function beforeDestroy() {
       this.ivyPinch.destroy();
+    }
+  }, {
+    key: "handler",
+    value: function handler(value) {
+      this.$emit('zoom-changed', value);
     }
   }, {
     key: "isDragging",
@@ -5511,6 +5526,8 @@ __decorate([Prop()], PinchZoomvue_type_script_lang_ts_PinchZoom.prototype, "auto
 __decorate([Prop()], PinchZoomvue_type_script_lang_ts_PinchZoom.prototype, "wheelZoomFactor", void 0);
 
 __decorate([Prop()], PinchZoomvue_type_script_lang_ts_PinchZoom.prototype, "draggableImage", void 0);
+
+__decorate([Watch('isZoomedIn')], PinchZoomvue_type_script_lang_ts_PinchZoom.prototype, "handler", null);
 
 PinchZoomvue_type_script_lang_ts_PinchZoom = __decorate([vue_class_component_esm], PinchZoomvue_type_script_lang_ts_PinchZoom);
 /* harmony default export */ var PinchZoomvue_type_script_lang_ts_ = (PinchZoomvue_type_script_lang_ts_PinchZoom);

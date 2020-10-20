@@ -1,170 +1,138 @@
 <template>
-  <div class="pinch-zoom-wrapper" :style="styleObject">
-    <div ref="wrapper" class="pinch-zoom-content" :class="{ 'pz-dragging': isDragging() }">
-      <slot></slot>
-    </div>
+    <div class="pinch-zoom-wrapper" v-bind:style="styleObject">
+        <div class="pinch-zoom-content" v-bind:class="{'pz-dragging': isDragging()}" ref="wrapper">
+            <slot></slot>
+        </div>
 
-    <div v-if="isControl()" class="pz-zoom-button pz-zoom-control-position-bottom" :class="{ 'pz-zoom-button-out': isZoomedIn }" @click="toggleZoom()"></div>
-  </div>
+        <div class="pz-zoom-button pz-zoom-control-position-bottom" v-if="isControl()" v-bind:class="{'pz-zoom-button-out': isZoomedIn}" v-on:click="toggleZoom()"></div>
+    </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { IvyPinch } from './ivypinch';
-import { Interfaces } from './interfaces';
-import { defaultProperties } from './properties';
-
+import { IvyPinch } from '../ivypinch';
+import { Interfaces } from '../interfaces';
+import { defaultProperties } from '../properties';
 @Component
 export default class PinchZoom extends Vue {
-  @Prop() properties: Interfaces | undefined;
-  @Prop() transitionDuration: number | undefined;
-  @Prop() doubleTap: boolean | undefined;
-  @Prop() doubleTapScale: number | undefined;
-  @Prop() autoZoomOut: boolean | undefined;
-  @Prop() limitZoom: number | 'original image size' | undefined;
-  @Prop() disabled: boolean | undefined;
-  @Prop() disablePan: boolean | undefined;
-  @Prop() overflow: 'hidden' | 'visible' | undefined;
-  // @Prop() zoomControlScale: number;
-  @Prop() disableZoomControl: 'disable' | 'never' | 'auto' | undefined;
-  @Prop() backgroundColor: string | undefined;
-  @Prop() limitPan: boolean | undefined;
-  @Prop() minScale: number | undefined;
-  @Prop() listeners: 'auto' | 'mouse and touch' | undefined;
-  @Prop() wheel: boolean | undefined;
-  @Prop() autoHeight: boolean | undefined;
-  @Prop() wheelZoomFactor: number | undefined;
-  @Prop() draggableImage: boolean | undefined;
-
-  _properties: Interfaces | undefined;
-  ivyPinch: any;
-  styleObject: any;
-  isZoomedIn: boolean = false;
-
-  get isTouchScreen() {
-    const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
-    const mq = function(query: any) {
-      return window.matchMedia(query).matches;
-    };
-
-    if ('ontouchstart' in window) {
-      return true;
-    }
-
-    // include the 'heartz' as a way to have a non matching MQ to help terminate the join
-    // https://git.io/vznFH
-    const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
-    return mq(query);
-  }
-
-  created() {
-    const changedOptions = this.getProperties(this.$props);
-    this.applyOptionsDefault(defaultProperties, changedOptions);
-    this.setStyles();
-  }
-
-  mounted() {
-    this.init();
-  }
-
-  beforeDestroy() {
-    this.ivyPinch.destroy();
-  }
-
-  @Watch('isZoomedIn')
-  handler(value: any): void {
-    this.$emit('zoom-changed', value);
-  }
-
-  isDragging() {
-    if (!this.ivyPinch) {
-      return undefined;
-    }
-    return this.ivyPinch.isDragging();
-  }
-
-  isControl() {
-    if (this._properties?.disabled) {
-      return false;
-    }
-
-    if (!this._properties) {
-      return undefined;
-    }
-
-    if (this._properties.disableZoomControl === 'disable') {
-      return false;
-    }
-
-    if (this.isTouchScreen && this._properties.disableZoomControl === 'auto') {
-      return false;
-    }
-
-    return true;
-  }
-
-  getScale() {
-    if (!this.ivyPinch) {
-      return undefined;
-    }
-    return this.ivyPinch.scale;
-  }
-
-  init() {
-    if (this._properties?.disabled) {
-      return;
-    }
-
-    if (this._properties) {
-      this._properties.element = this.$refs.wrapper;
-      this._properties.eventHandler = this.myEventHandler;
-    }
-    this.ivyPinch = new IvyPinch(this._properties);
-
-    this.pollLimitZoom();
-  }
-
-  getProperties(changes: any) {
-    let properties: any = {};
-
-    for (const prop in changes) {
-      if (changes[prop] !== undefined) {
-        if (prop !== 'properties') {
-          properties[prop] = changes[prop];
+    @Prop() properties: Interfaces;
+    @Prop() transitionDuration: number;
+    @Prop() doubleTap: boolean;
+    @Prop() doubleTapScale: number;
+    @Prop() autoZoomOut: boolean;
+    @Prop() limitZoom: number | "original image size";
+    @Prop() disabled: boolean;
+    @Prop() disablePan: boolean;
+    @Prop() overflow: "hidden" | "visible";
+    //@Prop() zoomControlScale: number;
+    @Prop() disableZoomControl: "disable" | "never" | "auto";
+    @Prop() backgroundColor: string;
+    @Prop() limitPan: boolean;
+    @Prop() minScale: number;
+    @Prop() listeners: 'auto' | 'mouse and touch';
+    @Prop() wheel: boolean;
+    @Prop() autoHeight: boolean;
+    @Prop() wheelZoomFactor: number;
+    @Prop() draggableImage: boolean;
+    _properties: Interfaces;
+    ivyPinch: any;
+    styleObject:any;
+    isZoomedIn: boolean = false;
+    get isTouchScreen() {
+        var prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+        var mq = function(query:any) {
+            return window.matchMedia(query).matches;
         }
-        if (prop === 'properties') {
-          properties = changes[prop];
+        if (('ontouchstart' in window)) {
+            return true;
         }
-      }
+        // include the 'heartz' as a way to have a non matching MQ to help terminate the join
+        // https://git.io/vznFH
+        var query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+        return mq(query);
     }
-    return properties;
-  }
-
-  applyOptionsDefault(defaultOptions: any, options: any): void {
-    this._properties = Object.assign({}, defaultOptions, options);
-  }
-
-  myEventHandler(event: any) {
-    if (event.name === 'wheel' || event.name === 'zoom' || event.name === 'pinch') {
-      this.isZoomedIn = event.detail.scale > 1;
+    created() {
+        let changedOptions = this.getProperties(this.$props);
+        this.applyOptionsDefault(defaultProperties, changedOptions);
+        this.setStyles();
     }
-  }
-
-  toggleZoom() {
-    this.ivyPinch.toggleZoom();
-    this.isZoomedIn = this.getScale() > 1;
-  }
-
-  pollLimitZoom() {
-    this.ivyPinch.pollLimitZoom();
-  }
-
-  setStyles() {
-    this.styleObject = {
-      overflow: this._properties?.overflow,
-      'background-color': this._properties?.backgroundColor
-    };
-  }
+    mounted() {
+        this.init();
+    }
+    beforeDestroy() {
+      this.ivyPinch.destroy();
+    }
+    @Watch('isZoomedIn')
+    handler(value: any): void {
+        this.$emit('zoom-changed', value);
+    }
+    isDragging() {
+        if (!this.ivyPinch) {
+            return undefined;
+        }
+        return  this.ivyPinch.isDragging();
+    }
+    isControl() {
+        if (this._properties['disabled']) {
+            return false;
+        }
+        if (!this._properties) { return undefined; }
+        if (this._properties['disableZoomControl'] === "disable") {
+            return false;
+        }
+        if (this.isTouchScreen && this._properties['disableZoomControl'] === "auto") {
+            return false;
+        }
+        return true;
+    }
+    getScale() {
+        if (!this.ivyPinch) { return undefined; }
+        return this.ivyPinch.scale;
+    }
+    init() {
+        if (this._properties['disabled']) {
+            return;
+        }
+        this._properties['element'] = this.$refs.wrapper;
+        this._properties['eventHandler'] = this.myEventHandler;
+        this.ivyPinch = new IvyPinch(this._properties);
+        this.pollLimitZoom();
+    }
+    getProperties(changes: any){
+        let properties: any = {};
+        for (var prop in changes) {
+            if (changes[prop] !== undefined) {
+                if (prop !== 'properties'){
+                    properties[prop] = changes[prop];
+                }
+                if (prop === 'properties'){
+                    properties = changes[prop];
+                }
+            }
+        }
+        return properties;
+    }
+    applyOptionsDefault(defaultOptions: any, options: any): void {
+        this._properties = Object.assign({}, defaultOptions, options);
+    }
+    myEventHandler(event:any) {
+        if (event.name === "wheel") {
+            this.isZoomedIn = event.detail.scale > 1;
+        }
+    }
+    toggleZoom() {
+        this.ivyPinch.toggleZoom();
+        this.isZoomedIn = this.getScale() > 1;
+    }
+    pollLimitZoom() {
+        this.ivyPinch.pollLimitZoom();
+    }
+    setStyles() {
+        this.styleObject = {
+            'overflow': this._properties['overflow'],
+            'background-color': this._properties['backgroundColor']
+        };
+    }
 }
 </script>
 
