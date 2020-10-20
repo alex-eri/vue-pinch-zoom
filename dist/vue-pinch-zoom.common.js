@@ -3248,12 +3248,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1b3711ec-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/PinchZoom.vue?vue&type=template&id=f5d70ee6&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"1b3711ec-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/PinchZoom.vue?vue&type=template&id=437aee59&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"pinch-zoom-wrapper",style:(_vm.styleObject)},[_c('div',{ref:"wrapper",staticClass:"pinch-zoom-content",class:{'pz-dragging': _vm.isDragging()}},[_vm._t("default")],2),(_vm.isControl())?_c('div',{staticClass:"pz-zoom-button pz-zoom-control-position-bottom",class:{'pz-zoom-button-out': _vm.isZoomedIn},on:{"click":function($event){return _vm.toggleZoom()}}}):_vm._e()])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/PinchZoom.vue?vue&type=template&id=f5d70ee6&
+// CONCATENATED MODULE: ./src/components/PinchZoom.vue?vue&type=template&id=437aee59&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.join.js
 var es_array_join = __webpack_require__("a15b");
@@ -5293,26 +5293,26 @@ var defaultProperties = {
   transitionDuration: 200,
   doubleTap: true,
   doubleTapScale: 2,
-  limitZoom: "original image size",
+  limitZoom: 'original image size',
   autoZoomOut: false,
   disabled: false,
-  overflow: "hidden",
+  overflow: 'hidden',
   zoomControlScale: 1,
-  backgroundColor: "rgba(0,0,0,0.85)",
+  backgroundColor: 'rgba(0,0,0,0.85)',
   minScale: 0,
-  disableZoomControl: "auto",
-  listeners: "mouse and touch",
+  disableZoomControl: 'auto',
+  listeners: 'mouse and touch',
   wheel: true,
   wheelZoomFactor: 0.2,
   draggableImage: false
 };
 var backwardCompatibilityProperties = {
-  "transition-duration": "transitionDuration",
-  "double-tap": "doubleTap",
-  "double-tap-scale": "doubleTapScale",
-  "zoom-button": "zoomButton",
-  "auto-zoom-out": "autoZoomOut",
-  "limit-zoom": "limitZoom"
+  'transition-duration': 'transitionDuration',
+  'double-tap': 'doubleTap',
+  'double-tap-scale': 'doubleTapScale',
+  'zoom-button': 'zoomButton',
+  'auto-zoom-out': 'autoZoomOut',
+  'limit-zoom': 'limitZoom'
 };
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/PinchZoom.vue?vue&type=script&lang=ts&
 
@@ -5379,7 +5379,7 @@ function (_Vue) {
   }, {
     key: "isControl",
     value: function isControl() {
-      if (this._properties['disabled']) {
+      if (this._properties.disabled) {
         return false;
       }
 
@@ -5387,11 +5387,11 @@ function (_Vue) {
         return undefined;
       }
 
-      if (this._properties['disableZoomControl'] === "disable") {
+      if (this._properties.disableZoomControl === 'disable') {
         return false;
       }
 
-      if (this.isTouchScreen && this._properties['disableZoomControl'] === "auto") {
+      if (this.isTouchScreen && this._properties.disableZoomControl === 'auto') {
         return false;
       }
 
@@ -5409,12 +5409,15 @@ function (_Vue) {
   }, {
     key: "init",
     value: function init() {
-      if (this._properties['disabled']) {
+      if (this._properties.disabled) {
         return;
       }
 
-      this._properties['element'] = this.$refs.wrapper;
-      this._properties['eventHandler'] = this.myEventHandler;
+      if (this._properties) {
+        this._properties.element = this.$refs.wrapper;
+        this._properties.eventHandler = this.myEventHandler;
+      }
+
       this.ivyPinch = new ivypinch_IvyPinch(this._properties);
       this.pollLimitZoom();
     }
@@ -5445,7 +5448,7 @@ function (_Vue) {
   }, {
     key: "myEventHandler",
     value: function myEventHandler(event) {
-      if (event.name === "wheel") {
+      if (event.name === 'wheel' || event.name === 'zoom' || event.name === 'pinch') {
         this.isZoomedIn = event.detail.scale > 1;
       }
     }
@@ -5464,8 +5467,8 @@ function (_Vue) {
     key: "setStyles",
     value: function setStyles() {
       this.styleObject = {
-        'overflow': this._properties['overflow'],
-        'background-color': this._properties['backgroundColor']
+        overflow: this.properties.overflow,
+        'background-color': this._properties.backgroundColor
       };
     }
   }, {
