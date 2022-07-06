@@ -159,7 +159,7 @@ export default class PinchZoom extends Vue {
 
   setStyles() {
     this.styleObject = {
-      overflow: this.properties.overflow,
+      overflow: this._properties.overflow,
       'background-color': this._properties.backgroundColor
     };
   }
